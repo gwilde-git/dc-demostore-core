@@ -1,5 +1,6 @@
 import React from 'react';
 import SearchIcon from './SearchIcon';
+import { getImageURL } from '@utils/getImageURL';
 
 interface Props {
   searchTerm: any;
@@ -32,14 +33,14 @@ const SearchResultsListing: React.FC<Props> = (props) => {
                       let firstImage:string = '';
                         if(variants[0].images){
                             if (variants[0].images[0] && variants[0].images[0].url){ 
-                                firstImage = variants[0].images[0].url.replace("i8.amplience.net", "cdn.media.amplience.net");
+                                firstImage = variants[0].images[0].url
                                 if(firstImage.indexOf('cdn.media.amplience.net') > 0){
-                                    firstImage += '?fmt=auto&qlt=default&fmt.jpeg.qlt=75&fmt.webp.qlt=60&fmt.jp2.qlt=40&w=50&h=50&upscale=false&unsharp=0,1,1,7'
+                                    firstImage = getImageURL(firstImage)
                                 }
                             }
                         }
 
-                      let price = variants[0].prices.list
+                      let price = variants[0].listPrice
                       return (
                         <li key={index}>
                           <a href={href}>

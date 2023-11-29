@@ -18,14 +18,15 @@
 | externalBlock                | ExternalBlock                  | External block of HTML code                                               |
 | flexibleSlot                 | FlexibleSlot                   | Slot that allows a number of any content type                             |
 | image                        | Image                          | Basic image with SEO information                                          |
-| landingPage                  | LandingPage                    | ![Landing Page](../media/component-landingPage.png) A re-usable container for all content types with SEO information          |
-| landingpageSlot              | BannerSlot                     | Slot that can contain a landing page                                      |
+| contentPage                  | ContentPage                    | ![Content Page](../media/component-contentPage.png) A re-usable container for all content types with SEO information          |
+| contentpageSlot              | BannerSlot                     | Slot that can contain a content page                                      |
 | localizedBannerSlot          | LocalizedBannerSlot            | Slot for localized banner                                                 |
 | personalizedBannerSlot       | PersonalizedBannerSlot         | Slot that can accept multiple banner for different segments               |
 | productGrid                  | ProductGrid                    | ![Dynamic Product Grid](../media/component-dynamicProductGrid.png) Dynamic product grid based on a query and category                        |
 | shoppableImage               | ShoppableImage                 | ![Shoppable Image](../media/component-shoppableImage.jpg)Image that allows you to add focal points, hotspots and polygons to make shoppable                          |
 | simpleBanner                 | SimpleBanner                   | ![Simple Banner](../media/component-simpleBanner.png) Simple banner                                                             |
 | simpleLocalizedBanner        | SimpleBanner                   | ![Simple Localized Banner](../media/component-simpleLocalizedBanner.png) Simple localized banner                                                   |
+| simpleBannerBynder           | SimpleBannerBynder                | ![Simple Banner Bynder](../media/component-simpleBannerBynder.png) A variant of the simple banner component that serves its media from the selected asset from Bynder. See [Amplience Bynder Extension documentation](https://github.com/amplience/dc-extension-bynder) for more details.            |
 | slider                       | Slider                         | Slider that can contain images or videos                         |
 | slotBannerslot               | BannerSlot                     | Slot for banners, product carousel and more                               |
 | slotLocalizedbannerslot      | LocalizedBannerSlot            | Localized banner slot (list of components for each locale)                |
