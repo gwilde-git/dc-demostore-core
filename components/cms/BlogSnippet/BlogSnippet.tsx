@@ -1,72 +1,55 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { CmsContent } from '@lib/cms/CmsContent';
-import { ContentBlock } from '@components/cms-modern';
-import { Typography } from '@mui/material';
+import { CallToAction, ContentBlock } from '@components/cms-modern';
+import { Box, Button, Typography } from '@mui/material';
+import Link from 'next/link';
+import NextHead from 'next/head';
+import { CmsImage, getImageURL } from '@utils/getImageURL';
 
-/**
- * BlogSnippet props
- */
 export type BlogSnippetProps = {
-
-    /**
-     * Image
-     */
     image: CmsContent;
-
-    /**
-     * Blog title
-     */
     title: string;
-
-    /**
-     * Blog date
-     */
     blogdate: string;
-
-    /**
-     * Blog author
-     */
     author: string;
-    
-    /**
-     * Blog category
-     */
     category: string[];
-
-    /**
-     * Blog description
-     */
     description: string;
-
-    /**
-     * Call-to-action configuration
-     */
     cta: any;
-
-    /**
-     * Tags from taxonomy hierarchy
-     */
     tags: any[];
-
-    /**
-     * Keywords
-     */
-    keywords: string[];
+    keywords: string;
 };
 
-const BlogSnippet: FC<BlogSnippetProps> = ({
-    image,
-    title,
-    blogdate,
-    author,
-    category,
-    description,
-    tags,
-    cta,
-    keywords
-}) => {
+const buildCTAUrl = (cta: any) => {
+    switch (cta.type) {
+        case 'URL':
+            return cta.value;
+        case 'Category ID':
+            return `/category/${cta.value}`;
+        case 'Product SKU':
+            return `/product/${cta.value}`;
+        case 'Page ID':
+            return `/${cta.value}`;
+        default:
+            return '#';
+    }
+};
+
+const BlogSnippet = ({ image, title, blogdate, author, category, description, cta, keywords }: BlogSnippetProps) => {
     return (
         <>
+            <NextHead>
+                <title>{title || 'Amplience Retail Storefront Website'}</title>
+                <meta name="description" content={description} />
+                <meta property="og:title" content={title || 'Amplience Retail Storefront Website'} />
+                <meta property="og:description" content={description} />
+                <meta name="keywords" content={keywords} />
+                <meta property="og:image" content={getImageURL(image.image as CmsImage)} />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:site" content="@amplience" />
+                <meta name="twitter:creator" content="@amplience" />
+                <meta name="twitter:title" content={title || 'Amplience Retail Storefront Website'} />
+                <meta name="twitter:description" content={description} />
+                <meta name="twitter:image" content={getImageURL(image.image as CmsImage)} />
+            </NextHead>
             <div className="amp-dc-banner js_dc_banner">
                 <div className="amp-dc-banner-wrapper">
                     <div className="amp-dc-banner-pic-wrap">
@@ -77,11 +60,7 @@ const BlogSnippet: FC<BlogSnippetProps> = ({
 
             <div className="amp-dc-snippet-info-wrap">
                 {category?.length ? (
-                    <Typography
-                        variant="body2"
-                        component="div"
-                        className="amp-dc-snippet-info-wrap__categories"
-                    >
+                    <Typography variant="body2" component="div" className="amp-dc-snippet-info-wrap__categories">
                         {category.join(', ')}
                     </Typography>
                 ) : null}
@@ -92,20 +71,12 @@ const BlogSnippet: FC<BlogSnippetProps> = ({
                 ) : null}
                 <div className="amp-dc-snippet-info-wrap__description">
                     {author ? (
-                        <Typography
-                            variant="h4"
-                            component="div"
-                            className="amp-dc-author"
-                        >
+                        <Typography variant="h4" component="div" className="amp-dc-author">
                             {author}
                         </Typography>
                     ) : null}
                     {blogdate ? (
-                        <Typography
-                            variant="h4"
-                            component="div"
-                            className="amp-dc-blogdate"
-                        >
+                        <Typography variant="h4" component="div" className="amp-dc-blogdate">
                             {blogdate}
                         </Typography>
                     ) : null}
@@ -115,6 +86,17 @@ const BlogSnippet: FC<BlogSnippetProps> = ({
                     <Typography variant="h2" component="p">
                         {description}
                     </Typography>
+                ) : null}
+
+                {cta ? (
+                    <CallToAction
+                        key={cta?.label}
+                        href={buildCTAUrl(cta)}
+                        style={{ marginTop: '15px !important', marginRight: '15px !important' }}
+                        variant={'contained'}
+                    >
+                        {cta?.label}
+                    </CallToAction>
                 ) : null}
             </div>
         </>

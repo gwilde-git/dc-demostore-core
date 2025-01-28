@@ -1,63 +1,30 @@
-import React from 'react';
-import { Theme } from '@mui/material';
-import { withStyles, WithStyles } from '@mui/styles'
+import React, { PropsWithChildren } from 'react';
+import { Box, Typography } from '@mui/material';
+import { Accordion as MuiAccordian, AccordionDetails, Theme, AccordionSummary, Collapse, Button } from '@mui/material';
 
-const styles = (theme: Theme) => ({
-    root: {
-        marginTop: 10
-    },
-    header: {
-        borderTop: '1px solid #000',
-        borderBottom: '1px solid #000',
-        cursor: 'pointer',
-        padding: '10px 47.6px 10px 20px'
-    },
-    headerText: {
-        '&::before': {
-            content: '"+"',
-            fontSize: 20,
-            position: 'absolute',
-            display: 'inline-block',
-            right: 20,
-            top: 15
-        }
-    },
-    body: {
-        padding: '15px 0px 0px 15px',
-        display: 'inline-block'
-    }
-});
-
-interface Props extends WithStyles<typeof styles> {
-    className?: string;
-    style?: React.CSSProperties;
+interface AccordionProps extends PropsWithChildren {
     title: string;
 }
 
-const Accordion: React.SFC<Props> = (props) => {
-    const {
-        classes,
-        title,
-        children,
-        ...other
-    } = props;
+const Accordion = (props: AccordionProps) => {
+    const { title, children, ...other } = props;
 
     if (!React.Children.count(children)) {
         return <></>;
     }
 
     return (
-        <div className={classes.root}>
-            <div className={classes.header}>
-                <span className={classes.headerText}>
-                    {title}
-                </span>
-            </div>
-            <div className={classes.body}>
-                {children}
-            </div>
-        </div>
+        <Box style={{ marginTop: 10 }}>
+            <MuiAccordian defaultExpanded>
+                <AccordionSummary id="panel-header" aria-controls="panel-content" sx={{ minHeight: '48px' }}>
+                    <Typography>{title}</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                    <Box>{children}</Box>
+                </AccordionDetails>
+            </MuiAccordian>
+        </Box>
     );
 };
 
-export default withStyles(styles)(Accordion);
+export default Accordion;
